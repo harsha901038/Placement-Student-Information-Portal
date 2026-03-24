@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:5000/api";
+const API_BASE = "/api";
 
 export async function apiFetch<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
   const token = localStorage.getItem("token");
