@@ -1,0 +1,117 @@
+Build a complete MERN stack Placement Management System backend with API support for a modern frontend (to be built separately in v0.dev).
+
+TECH STACK:
+- Node.js
+- Express.js
+- MongoDB (Mongoose)
+- JWT Authentication
+- REST API architecture
+
+PROJECT STRUCTURE:
+backend/
+  ├── config/
+  ├── controllers/
+  ├── models/
+  ├── routes/
+  ├── middleware/
+  ├── utils/
+  └── server.js
+
+CORE FEATURES:
+
+AUTHENTICATION:
+- Student signup/login
+- Admin login
+- JWT-based authentication
+- Role-based access (student/admin)
+
+STUDENT FEATURES:
+- Create and update profile
+- Upload resume data (store JSON, not file initially)
+- Apply to jobs
+- View applied jobs
+- Track application status:
+  - Applied
+  - Shortlisted
+  - Rejected
+  - Selected
+
+ADMIN FEATURES:
+- Add/Edit/Delete job postings
+- View all students
+- View all applications
+- Update application status
+- Dashboard stats:
+  - Total students
+  - Total jobs
+  - Applications count
+
+DATABASE MODELS:
+
+User Model:
+- name
+- email
+- password (hashed)
+- role (student/admin)
+- profile fields (skills, branch, college, etc.)
+
+Job Model:
+- title
+- company
+- description
+- eligibility
+- deadline
+- createdBy (admin)
+
+Application Model:
+- studentId
+- jobId
+- status
+- appliedAt
+
+API ENDPOINTS:
+
+Auth:
+- POST /api/auth/register
+- POST /api/auth/login
+
+Student:
+- GET /api/student/profile
+- PUT /api/student/profile
+- GET /api/student/jobs
+- POST /api/student/apply/:jobId
+- GET /api/student/applications
+
+Admin:
+- POST /api/admin/job
+- GET /api/admin/jobs
+- PUT /api/admin/job/:id
+- DELETE /api/admin/job/:id
+- GET /api/admin/students
+- GET /api/admin/applications
+- PUT /api/admin/application/:id
+
+MIDDLEWARE:
+- authMiddleware (verify JWT)
+- roleMiddleware (admin/student access control)
+
+EXTRA FEATURES:
+- Error handling middleware
+- Input validation (Joi or express-validator)
+- Pagination for job listings
+- Search/filter jobs
+
+INTEGRATION READY:
+- Enable CORS
+- JSON API responses (clean structure)
+- Designed to connect easily with a Next.js frontend (v0.dev UI)
+
+ENV VARIABLES:
+- PORT
+- MONGO_URI
+- JWT_SECRET
+
+DELIVERABLE:
+- Fully working backend server
+- Clean folder structure
+- Ready-to-use API for frontend integration
