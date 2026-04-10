@@ -1,0 +1,105 @@
+
+> @workspace/student-portal@0.0.0 dev /home/runner/workspace/artifacts/student-portal
+> vite --config vite.config.ts --host 0.0.0.0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J
+  [32m[1mVITE[22m v7.3.1[39m  [2mready in [0m[1m307[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m21993[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.31.79.226:[1m21993[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m1:49:37 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/index.css, /src/pages/auth/Login.tsx, /src/pages/auth/Register.tsx, /src/components/layout/AppLayout.tsx, /src/pages/student/Profile.tsx, /src/pages/student/Attendance.tsx, /src/pages/student/Jobs.tsx, /src/pages/student/Applications.tsx, /src/pages/student/Results.tsx, /src/pages/student/Dashboard.tsx, /src/pages/student/ResumeBuilder.tsx, /src/pages/admin/Dashboard.tsx, /src/pages/admin/Jobs.tsx, /src/pages/admin/Applications.tsx, /src/pages/admin/Students.tsx[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m1:50:11 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/pages/auth/Login.tsx, /src/index.css[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m1:50:18 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/index.css, /src/pages/auth/Login.tsx, /src/pages/auth/Register.tsx, /src/components/layout/AppLayout.tsx[22m
