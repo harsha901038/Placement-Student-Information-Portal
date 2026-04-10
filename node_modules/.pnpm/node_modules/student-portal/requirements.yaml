@@ -1,0 +1,19 @@
+packages:
+  "framer-motion": "For smooth page transitions and micro-interactions"
+  "recharts": "For rendering admin dashboard analytics charts"
+  "date-fns": "For formatting application and job deadlines"
+  "react-hook-form": "For robust and performant form handling"
+  "@hookform/resolvers": "For Zod schema validation integration"
+
+images:
+  - path: "artifacts/student-portal/public/images/auth-bg.png"
+    description: "Abstract, modern university campus architecture with subtle blue and white geometric glass overlays, professional corporate style"
+    aspect_ratio: "16:9"
+  - path: "artifacts/student-portal/public/images/empty-jobs.png"
+    description: "Minimalist 3D illustration of a magnifying glass over a briefcase in academic blue and white tones"
+    aspect_ratio: "1:1"
+
+notes:
+  - "Using custom fetch wrapper to route all API calls to http://localhost:5000/api as requested"
+  - "Authentication JWT stored in localStorage"
+  - "Using wouter for routing"
