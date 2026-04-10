@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -7,7 +8,10 @@ const Groq = require("groq-sdk");
 console.log("🔥 NEW SERVER FILE RUN AVUTHUNDI 🔥");
 
 // ✅ GROQ SETUP — మీ key ఇక్కడ replace చేయండి
-const groq = new Groq({ apiKey: "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" });
+const groq = new Groq({
+  apiKey: process.env.GROQ_API_KEY,
+});
+
 
 // ✅ CONNECT DB
 require("dotenv").config();
