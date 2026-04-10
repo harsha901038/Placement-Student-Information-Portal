@@ -8,11 +8,22 @@ export function useAuth() {
   const queryClient = useQueryClient();
 
   const userJson = localStorage.getItem("user");
-  const user: UserInfo | null = userJson ? JSON.parse(userJson) : null;
+
+  let user: UserInfo | null = null;
+
+  try {
+    if (userJson && userJson !== "undefined") {
+      user = JSON.parse(userJson);
+    }
+  } catch (e) {
+    console.error("Invalid user JSON → clearing");
+    localStorage.removeItem("user");
+  }
+
   const isAuthenticated = !!localStorage.getItem("token");
 
   const loginMutation = useMutation({
-    mutationFn: (data: LoginRequest) => apiFetch<AuthResponse>("/auth/login", {
+    mutationFn: (data: LoginRequest) => apiFetch<AuthResponse>("/login", {
       method: "POST",
       body: JSON.stringify(data)
     }),
@@ -28,7 +39,7 @@ export function useAuth() {
   });
 
   const registerMutation = useMutation({
-    mutationFn: (data: RegisterRequest) => apiFetch<AuthResponse>("/auth/register", {
+    mutationFn: (data: RegisterRequest) => apiFetch<AuthResponse>("/register", {
       method: "POST",
       body: JSON.stringify(data)
     }),

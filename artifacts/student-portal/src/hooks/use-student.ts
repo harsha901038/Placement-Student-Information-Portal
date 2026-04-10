@@ -2,69 +2,104 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiFetch } from "@/lib/api";
 import type { 
   StudentProfile, UpdateProfileRequest, JobsListResponse, 
-  Application, ApplicationWithJob, AttendanceResponse, 
+  Application, AttendanceResponse, 
   AttendanceUpdateRequest, SemesterResult, AddSemesterResultRequest,
   ResumeData, ResumeScoreResponse
 } from "@workspace/api-client-react";
 
+const getUser = () => {
+  try {
+    const raw = localStorage.getItem("user");
+    if (raw && raw !== "undefined") return JSON.parse(raw);
+  } catch {}
+  return {};
+};
+
 // Profile Hooks
 export function useStudentProfile() {
+  const user = getUser();
   return useQuery({
-    queryKey: ["student-profile"],
-    queryFn: () => apiFetch<StudentProfile>("/student/profile"),
+    queryKey: ["student-profile", user?._id],
+    queryFn: () => apiFetch<StudentProfile>(`/student/profile?studentId=${user._id}`),
+    enabled: !!user?._id,
+    staleTime: 1000 * 60 * 5,      // ✅ 5 minutes cache
+    gcTime: 1000 * 60 * 10,         // ✅ 10 minutes memory
   });
 }
 
 export function useUpdateProfile() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (data: UpdateProfileRequest) => apiFetch<StudentProfile>("/student/profile", {
-      method: "PUT",
-      body: JSON.stringify(data),
-    }),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["student-profile"] }),
-  });
-}
-
-// Jobs & Applications Hooks
-export function useStudentJobs(search?: string, page: number = 1) {
-  const query = new URLSearchParams();
-  if (search) query.set("search", search);
-  if (page) query.set("page", page.toString());
-  
-  const queryString = query.toString() ? `?${query.toString()}` : "";
-  
-  return useQuery({
-    queryKey: ["student-jobs", search, page],
-    queryFn: () => apiFetch<JobsListResponse>(`/student/jobs${queryString}`),
-  });
-}
-
-export function useApplyJob() {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: (jobId: string) => apiFetch<Application>(`/student/apply/${jobId}`, {
-      method: "POST",
-    }),
+    mutationFn: (data: UpdateProfileRequest) => {
+      const user = getUser();
+      return apiFetch<StudentProfile>("/student/profile", {
+        method: "PUT",
+        body: JSON.stringify({ ...data, studentId: user._id }),
+      });
+    },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["student-jobs"] });
-      queryClient.invalidateQueries({ queryKey: ["student-applications"] });
+      const user = getUser();
+      queryClient.invalidateQueries({ queryKey: ["student-profile", user?._id] });
     },
   });
 }
 
-export function useStudentApplications() {
+// Jobs
+export function useStudentJobs(search?: string, page: number = 1) {
+  const query = new URLSearchParams();
+  if (search) query.set("search", search);
+  if (page) query.set("page", page.toString());
+  const queryString = query.toString() ? `?${query.toString()}` : "";
   return useQuery({
-    queryKey: ["student-applications"],
-    queryFn: () => apiFetch<ApplicationWithJob[]>("/student/applications"),
+    queryKey: ["student-jobs", search, page],
+    queryFn: () => apiFetch<JobsListResponse>(`/student/jobs${queryString}`),
+    staleTime: 1000 * 60 * 2,
   });
 }
 
-// Attendance Hooks
-export function useAttendance() {
+// Apply Job
+export function useApplyJob() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data: { studentId: string; jobTitle: string; company: string }) => {
+      return apiFetch<Application>("/student/apply", {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+    },
+    onSuccess: () => {
+      const user = getUser();
+      queryClient.invalidateQueries({ queryKey: ["student-jobs"] });
+      queryClient.invalidateQueries({ queryKey: ["student-applications", user?._id] });
+    },
+  });
+}
+
+// Applications
+export function useStudentApplications() {
+  const user = getUser();
   return useQuery({
-    queryKey: ["student-attendance"],
-    queryFn: () => apiFetch<AttendanceResponse>("/student/attendance"),
+    queryKey: ["student-applications", user?._id],
+    queryFn: async () => {
+      if (!user?._id) return [];
+      const res = await apiFetch<any>(`/student/applications/${user._id}`);
+      return Array.isArray(res) ? res : res?.applications || [];
+    },
+    enabled: !!user?._id,
+    staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 10,
+  });
+}
+
+// Attendance
+export function useAttendance() {
+  const user = getUser();
+  return useQuery({
+    queryKey: ["student-attendance", user?._id],
+    queryFn: () => apiFetch<AttendanceResponse>(`/student/attendance?studentId=${user._id}`),
+    enabled: !!user?._id,
+    staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 10,
   });
 }
 
@@ -79,11 +114,18 @@ export function useUpdateAttendance() {
   });
 }
 
-// Results Hooks
+// Results
 export function useResults() {
+  const user = getUser();
   return useQuery({
-    queryKey: ["student-results"],
-    queryFn: () => apiFetch<SemesterResult[]>("/student/results"),
+    queryKey: ["student-results", user?._id],
+    queryFn: async () => {
+      if (!user?._id) return [];
+      return apiFetch<SemesterResult[]>(`/student/results?studentId=${user._id}`);
+    },
+    enabled: !!user?._id,
+    staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 10,
   });
 }
 
@@ -94,26 +136,39 @@ export function useAddResult() {
       method: "POST",
       body: JSON.stringify(data),
     }),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["student-results"] }),
+    onSuccess: () => {
+      const user = getUser();
+      queryClient.invalidateQueries({ queryKey: ["student-results", user?._id] });
+    },
   });
 }
 
-// Resume Hooks
+// Resume
 export function useResume() {
+  const user = getUser();
   return useQuery({
-    queryKey: ["student-resume"],
-    queryFn: () => apiFetch<ResumeData>("/student/resume"),
+    queryKey: ["student-resume", user?._id],
+    queryFn: () => apiFetch<ResumeData>(`/student/resume?studentId=${user._id}`),
+    enabled: !!user?._id,
+    staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 10,
   });
 }
 
 export function useUpdateResume() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (data: ResumeData) => apiFetch<ResumeData>("/student/resume", {
-      method: "PUT",
-      body: JSON.stringify(data),
-    }),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["student-resume"] }),
+    mutationFn: (data: ResumeData) => {
+      const user = getUser();
+      return apiFetch<ResumeData>("/student/resume", {
+        method: "PUT",
+        body: JSON.stringify({ ...data, studentId: user._id }),
+      });
+    },
+    onSuccess: () => {
+      const user = getUser();
+      queryClient.invalidateQueries({ queryKey: ["student-resume", user?._id] });
+    },
   });
 }
 

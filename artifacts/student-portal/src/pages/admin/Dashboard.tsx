@@ -18,11 +18,14 @@ export default function AdminDashboard() {
   return (
     <AppLayout>
       <div className="space-y-8 max-w-7xl mx-auto">
+
+        {/* Header */}
         <div>
           <h1 className="text-3xl font-display font-bold text-gray-900">Admin Dashboard</h1>
           <p className="text-gray-500 mt-1">Overview of placement activities and statistics</p>
         </div>
 
+        {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <Card className="rounded-3xl border-gray-100 shadow-sm">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
@@ -33,6 +36,7 @@ export default function AdminDashboard() {
               <div className="text-3xl font-display font-bold text-gray-900">{data?.totalStudents || 0}</div>
             </CardContent>
           </Card>
+
           <Card className="rounded-3xl border-gray-100 shadow-sm">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium text-gray-500">Active Jobs</CardTitle>
@@ -42,6 +46,7 @@ export default function AdminDashboard() {
               <div className="text-3xl font-display font-bold text-gray-900">{data?.totalJobs || 0}</div>
             </CardContent>
           </Card>
+
           <Card className="rounded-3xl border-gray-100 shadow-sm">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium text-gray-500">Total Applications</CardTitle>
@@ -51,6 +56,7 @@ export default function AdminDashboard() {
               <div className="text-3xl font-display font-bold text-gray-900">{data?.totalApplications || 0}</div>
             </CardContent>
           </Card>
+
           <Card className="rounded-3xl border-gray-100 shadow-sm">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium text-gray-500">Total Placed</CardTitle>
@@ -62,6 +68,7 @@ export default function AdminDashboard() {
           </Card>
         </div>
 
+        {/* Charts + Recent Activity */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <Card className="lg:col-span-1 rounded-3xl shadow-sm border-gray-100">
             <CardHeader>
@@ -86,26 +93,34 @@ export default function AdminDashboard() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {data?.recentApplications?.slice(0, 5).map(app => (
+                {data?.recentApplications?.slice(0, 5).map((app: any) => (
                   <div key={app._id} className="flex justify-between items-center p-4 bg-gray-50 rounded-2xl border border-gray-100">
                     <div>
                       <p className="font-semibold text-gray-900">{app.student?.name}</p>
-                      <p className="text-sm text-gray-500">Applied for <span className="font-medium text-primary">{app.job?.title}</span> at {app.job?.company}</p>
+                      <p className="text-sm text-gray-500">
+                        Applied for <span className="font-medium text-primary">{app.job?.title}</span> at {app.job?.company}
+                      </p>
                     </div>
                     <span className={`px-3 py-1 text-xs font-bold uppercase rounded-xl border ${
-                      app.status === 'selected' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
-                      app.status === 'shortlisted' ? 'bg-amber-50 text-amber-700 border-amber-200' :
-                      app.status === 'rejected' ? 'bg-red-50 text-red-700 border-red-200' :
-                      'bg-blue-50 text-blue-700 border-blue-200'
+                      app.status === "selected" ? "bg-emerald-50 text-emerald-700 border-emerald-200" :
+                      app.status === "shortlisted" ? "bg-amber-50 text-amber-700 border-amber-200" :
+                      app.status === "rejected" ? "bg-red-50 text-red-700 border-red-200" :
+                      "bg-blue-50 text-blue-700 border-blue-200"
                     }`}>
                       {app.status}
                     </span>
                   </div>
                 ))}
+                {(!data?.recentApplications || data.recentApplications.length === 0) && (
+                  <div className="text-center py-8 text-gray-400 text-sm">
+                    No recent applications
+                  </div>
+                )}
               </div>
             </CardContent>
           </Card>
         </div>
+
       </div>
     </AppLayout>
   );

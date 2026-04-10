@@ -131,6 +131,17 @@ function getPreviewPath(): string | null {
 function App() {
   const previewPath = getPreviewPath();
 
+  // ✅ SAFE GUARD (IMPORTANT FIX)
+  try {
+    const userJson = localStorage.getItem("user");
+    if (userJson) {
+      JSON.parse(userJson);
+    }
+  } catch (err) {
+    console.error("Invalid JSON in localStorage → clearing");
+    localStorage.removeItem("user");
+  }
+
   if (previewPath) {
     return (
       <PreviewRenderer

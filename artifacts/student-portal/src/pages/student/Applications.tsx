@@ -12,7 +12,7 @@ export default function StudentApplications() {
 
   const statusColors: Record<string, string> = {
     applied: "bg-blue-50 text-blue-700 border-blue-200",
-    shortlisted: "bg-amber-50 text-amber-700 border-amber-200",
+    shortlisted: "bg-amber-50 text-amber-700 border-blue-200",
     rejected: "bg-red-50 text-red-700 border-red-200",
     selected: "bg-emerald-50 text-emerald-700 border-emerald-200"
   };
@@ -37,16 +37,21 @@ export default function StudentApplications() {
                       <Building2 className="w-8 h-8 text-primary" />
                     </div>
                     <div>
-                      <h3 className="text-2xl font-bold font-display text-gray-900 mb-1">{app.job?.title}</h3>
-                      <p className="text-lg text-primary font-medium">{app.job?.company}</p>
+
+                      <h3 className="text-2xl font-bold font-display text-gray-900 mb-1">{app.jobTitle}</h3>
+
+                      <p className="text-lg text-primary font-medium">{app.company}</p>
                       
                       <div className="flex flex-wrap gap-4 mt-4 text-sm text-gray-500">
-                        {app.job?.location && (
-                          <div className="flex items-center"><MapPin className="w-4 h-4 mr-1.5" /> {app.job.location}</div>
+
+                        {/* ✅ SAFE DATE FIX */}
+                        {app.appliedAt && !isNaN(new Date(app.appliedAt).getTime()) && (
+                          <div className="flex items-center">
+                            <CalendarDays className="w-4 h-4 mr-1.5" />
+                            Applied on {format(new Date(app.appliedAt), 'MMM dd, yyyy')}
+                          </div>
                         )}
-                        {app.appliedAt && (
-                          <div className="flex items-center"><CalendarDays className="w-4 h-4 mr-1.5" /> Applied on {format(new Date(app.appliedAt), 'MMM dd, yyyy')}</div>
-                        )}
+
                       </div>
                     </div>
                   </div>
