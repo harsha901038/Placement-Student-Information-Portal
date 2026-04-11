@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle2, Clock, ChevronRight, Trophy } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
-const API = "http://localhost:5000";
+const API = "http://https://placement-student-information-portal.onrender.com";
 
 export default function StudentAssignments() {
   const { toast } = useToast();

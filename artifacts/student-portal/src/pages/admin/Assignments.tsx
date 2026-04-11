@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Trash2, Users, Plus, ChevronDown, ChevronUp } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
-const API = "http://localhost:5000";
+const API = "http://https://placement-student-information-portal.onrender.com";
 
 const emptyQuestion = () => ({
   question: "",

@@ -17,7 +17,7 @@ export default function AdminRollNumbers() {
   const [groupedRolls, setGroupedRolls] = useState({});
 
   useEffect(() => {
-  fetch("http://localhost:5000/api/admin/rolls-by-branch")
+  fetch("http://https://placement-student-information-portal.onrender.com/api/admin/rolls-by-branch")
     .then(res => res.json())
     .then(data => setGroupedRolls(data))
     .catch(err => console.log(err));
@@ -50,7 +50,7 @@ export default function AdminRollNumbers() {
 
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/admin/roll-numbers", {
+      const res = await fetch("http://https://placement-student-information-portal.onrender.com/api/admin/roll-numbers", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ rollNumbers })
@@ -59,7 +59,7 @@ export default function AdminRollNumbers() {
       toast({ title: `${rollNumbers.length} roll numbers uploaded successfully ` });
       setInput("");
 
-const res2 = await fetch("http://localhost:5000/api/admin/rolls-by-branch");
+const res2 = await fetch("http://https://placement-student-information-portal.onrender.com/api/admin/rolls-by-branch");
 const newData = await res2.json();
 setGroupedRolls(newData);
     } catch (err) {

@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { Newspaper, ExternalLink, Loader2 } from "lucide-react";
 
-const API = "http://localhost:5000";
+const API = "http://https://placement-student-information-portal.onrender.com";
 
 export default function StudentNewsFeed() {
   const { data: news = [], isLoading } = useQuery({

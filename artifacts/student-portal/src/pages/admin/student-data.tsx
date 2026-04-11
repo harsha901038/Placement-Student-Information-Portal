@@ -4,7 +4,7 @@ import { AppLayout } from "@/components/layout/AppLayout";
 import { useAdminStudent } from "@/hooks/use-admin";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
-const API = "http://localhost:5000";
+const API = "http://https://placement-student-information-portal.onrender.com";
 
 const ResumeSection = ({ title, children }: { title: string; children: React.ReactNode }) => (
   <div style={{ marginBottom: 16 }}>

@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { User, Mail, Phone, Calendar, MapPin, Building2, GraduationCap, Award } from "lucide-react";
 
-const API = "http://localhost:5000";
+const API = "http://https://placement-student-information-portal.onrender.com";
 
 const InfoRow = ({ icon: Icon, label, value }: any) => (
   <div className="flex items-start gap-4 py-3 border-b border-gray-100 last:border-0">

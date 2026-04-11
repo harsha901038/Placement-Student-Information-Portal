@@ -10,7 +10,7 @@ import {
   Loader2, Search, SlidersHorizontal, Download, ArrowLeft
 } from "lucide-react";
 
-const API = "http://localhost:5000";
+const API = "http://https://placement-student-information-portal.onrender.com";
 
 const BRANCHES = [
   { name: "CSE",   label: "Computer Science",       color: "bg-blue-500",    light: "bg-blue-50 border-blue-200 text-blue-800" },

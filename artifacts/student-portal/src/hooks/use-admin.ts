@@ -6,7 +6,7 @@ import type {
 } from "@workspace/api-client-react";
 
 // ⚠️ KEEP BASE_URL but DON'T use it for apiFetch (important)
-const BASE_URL = "http://localhost:5000";
+const BASE_URL = "http://https://placement-student-information-portal.onrender.com";
 
 export function useAdminDashboard() {
   return useQuery({
