@@ -4,7 +4,7 @@ import { AppLayout } from "@/components/layout/AppLayout";
 import { Newspaper, RefreshCw, Check, Trash2, ExternalLink, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const API = "http://https://placement-student-information-portal.onrender.com";
+const API = "https://placement-student-information-portal.onrender.com";
 
 export default function AdminNews() {
   const qc = useQueryClient();

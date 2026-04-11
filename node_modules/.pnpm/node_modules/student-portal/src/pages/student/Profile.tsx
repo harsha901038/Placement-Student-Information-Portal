@@ -11,7 +11,7 @@ import {
   GraduationCap, Award, Lock, Save, Edit2, X 
 } from "lucide-react";
 
-const API = "http://https://placement-student-information-portal.onrender.com";
+const API = "https://placement-student-information-portal.onrender.com";
 
 const InfoRow = ({ icon: Icon, label, value, isEditing, fieldName, formData, onChange }: any) => (
   <div className="flex items-start gap-4 py-3 border-b border-gray-100 last:border-0">

@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { MessageCircle, X, Send, Loader2 } from "lucide-react";
 
-const API = "http://https://placement-student-information-portal.onrender.com";
+const API = "https://placement-student-information-portal.onrender.com";
 
 type Message = {
   role: "user" | "assistant";

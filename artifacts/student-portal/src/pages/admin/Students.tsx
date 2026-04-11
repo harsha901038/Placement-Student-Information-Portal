@@ -45,7 +45,7 @@ export default function AdminStudents() {
   // Delete Student
   const deleteStudent = useMutation({
     mutationFn: async (studentId: string) => {
-      const res = await fetch(`http://https://placement-student-information-portal.onrender.com/api/admin/students/${studentId}`, {
+      const res = await fetch(`https://placement-student-information-portal.onrender.com/api/admin/students/${studentId}`, {
         method: "DELETE"
       });
       if (!res.ok) throw new Error("Delete failed");

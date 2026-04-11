@@ -14,6 +14,6 @@ images:
     aspect_ratio: "1:1"
 
 notes:
-  - "Using custom fetch wrapper to route all API calls to http://https://placement-student-information-portal.onrender.com/api as requested"
+  - "Using custom fetch wrapper to route all API calls to https://placement-student-information-portal.onrender.com/api as requested"
   - "Authentication JWT stored in localStorage"
   - "Using wouter for routing"

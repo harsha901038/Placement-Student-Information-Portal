@@ -129,7 +129,7 @@ export default function StudentResults() {
   const handleDelete = async (resultId: string) => {
     if (!confirm("ఈ semester result delete చేయాలా?")) return;
     try {
-      const res = await fetch(`http://https://placement-student-information-portal.onrender.com/api/student/results/${resultId}`, { method: "DELETE" });
+      const res = await fetch(`https://placement-student-information-portal.onrender.com/api/student/results/${resultId}`, { method: "DELETE" });
       if (res.ok) {
         toast({ title: "Result deleted successfully!" });
         queryClient.invalidateQueries({ queryKey: ["results", user._id] });
@@ -152,7 +152,7 @@ export default function StudentResults() {
     e.preventDefault();
     setIsEditSaving(true);
     try {
-      const res = await fetch(`http://https://placement-student-information-portal.onrender.com/api/student/results`, {
+      const res = await fetch(`https://placement-student-information-portal.onrender.com/api/student/results`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -14,7 +14,7 @@ export default function ResumeAnalyzer() {
     const fetchResume = async () => {
       try {
         const user = JSON.parse(localStorage.getItem("user") || "{}");
-        const res = await fetch(`http://https://placement-student-information-portal.onrender.com/api/student/resume?studentId=${user._id}`);
+        const res = await fetch(`https://placement-student-information-portal.onrender.com/api/student/resume?studentId=${user._id}`);
         const data = await res.json();
 
         if (data && (data.objective || data.skills?.length)) {
@@ -46,7 +46,7 @@ Contact: ${data.email || ""} | ${data.phone || ""}
 
     try {
       // ✅ Backend ద్వారా Groq call — CORS problem లేదు
-      const response = await fetch("http://https://placement-student-information-portal.onrender.com/api/analyze-resume", {
+      const response = await fetch("https://placement-student-information-portal.onrender.com/api/analyze-resume", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ resumeText })

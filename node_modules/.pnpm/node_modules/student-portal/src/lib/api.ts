@@ -1,4 +1,4 @@
-const API_BASE = import.meta.env.VITE_API_URL || "http://https://placement-student-information-portal.onrender.com";// ✅ FIXED (removed /api)
+const API_BASE = import.meta.env.VITE_API_URL || "https://placement-student-information-portal.onrender.com";// ✅ FIXED (removed /api)
 
 export async function apiFetch<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
 
